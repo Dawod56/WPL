@@ -1,0 +1,112 @@
+{% extends "base/admin_base.html" %}
+{% load static %}
+{% block title %}
+Admin | Carousel
+{% endblock %}
+
+{% block container %}
+<div class="container">
+    <div class="row>">
+        <h3>Carousel Status: {% if perms.org.add_carousel %}
+        <button type="button" class="btn btn-success round float-right" data-toggle="modal" data-target="#notice_modal"><i class="fa fa-plus-circle"></i> Add New Carousel</button>
+        {% endif %}
+        </h3>
+
+        <div class="modal fade" id="notice_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add New Carousel</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'addcarousel' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+           <div class="form-group">
+                <input type="text" class="form-control" required name="image_name" placeholder="Image Title">
+           </div>
+
+           <div class="form-group">
+               <label for="1">Carousel Image</label>
+               <input type="file" class="form-control" required id="1" name="image" >
+           </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Add Carousell</button>
+            </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <table class="table table-dark table-striped">
+  <thead>
+    <tr>
+
+      <th>Title</th>
+      <th>Image</th>
+      <th>Date</th>
+      <th>Show Status</th>
+        <th>ON/OFF</th>
+
+      <th>Delete</th>
+
+    </tr>
+  </thead>
+  <tbody>
+  {% for i in carousel %}
+    <tr class="table-active">
+
+      <td>{{ i.image_name }}</td>
+        <td><img src="{{i.image.url}}" style="width:60px;height:60px" alt="{{i.image_name}}"></td>
+      <td>{{ i.date }}</td>
+      <td>{% if i.status %}
+            Enabled
+          {% else %}
+          Disabled
+          {% endif %}
+      </td>
+        <td>
+            {% if i.status %}
+            <form action="{% url 'carouselOFF' i.id %}" method="post">
+                {% csrf_token %}
+                    <button class="btn btn-outline-danger" type="submit">
+                    Disable
+                    </button>
+            </form>
+            {% else %}
+            <form action="{% url 'carouselON' i.id %}" method="post">
+                {% csrf_token %}
+                    <button class="btn btn-outline-success" type="submit">
+                    Enable
+                    </button>
+            </form>
+
+            {% endif %}
+
+        </td>
+
+      <td>
+        <form action="{% url 'carouselDelete' i.id %}" method="post">
+          {% csrf_token %}
+          <button class="btn btn-danger" type="submit">
+          Delete Permanently
+          </button>
+        </form>
+      </td>
+
+    </tr>
+   {% endfor %}
+
+  </tbody>
+</table>
+    </div>
+</div>
+{% endblock %}
+     

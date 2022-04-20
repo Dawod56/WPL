@@ -1,0 +1,95 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}
+Payment
+{% endblock %}
+
+{% block container %}
+<div class="article-dual-column">
+
+
+        <div class="container">
+            <div class="row flex center v-center full-height">
+                <div class="col-8 col-sm-4">
+                    <div class="form-box">
+                        <form action="{% url 'payment2'  %}" method="POST">
+                         {% csrf_token %}
+                                <fieldset>
+                                    <legend>Payment</legend>
+                                    <label for="method">Payment Type:</label>
+                                    <select id="method"  name="type">
+
+                                        <option value="Monthly">Monthly</option>
+                                        <option value="Yearly">Yearly</option>
+                                        <option value="Occasionally">Occasionally</option>
+                                    </select>
+                                    <label for="method2">Payment Month:</label>
+                                    <select id="method2" name="month">
+                                        <option value="Null">Select One</option>
+                                        <option value="January">January</option>
+                                        <option value="February">February</option>
+                                        <option value="March">March</option>
+                                        <option value="April">April</option>
+                                        <option value="May">May</option>
+                                        <option value="June">June</option>
+                                        <option value="July">July</option>
+                                        <option value="August">August</option>
+                                        <option value="September">September</option>
+                                        <option value="October">October</option>
+                                        <option value="November">November</option>
+                                        <option value="December">December</option>
+                                    </select>
+                                    <label for="method20">Payment Year:</label>
+                                    <select id="method20" name="year">
+                                        <option>Select One</option>
+                                        <option value="2020">2020</option>
+                                        <option value="2021">2021</option>
+                                        <option value="2022">2022</option>
+                                        <option value="2023">2023</option>
+                                        <option value="2024">2024</option>
+                                        <option value="2025">2025</option>
+                                        <option value="2026">2026</option>
+                                        <option value="2027">2027</option>
+                                        <option value="2028">2028</option>
+                                        <option value="2029">2029</option>
+                                        <option value="2030">2030</option>
+                                        <option value="2031">2031</option>
+                                    </select>
+                                    <label for="method3">Payment Method:</label>
+                                    <select id="method3" name="method">
+                                        <option value="Null">Select One</option>
+                                        <option value="Bkash">Bkash</option>
+                                        <option value="Rocket">Rocket</option>
+                                        <option value="Nagad">Nagad</option>
+                                    </select>
+                                    <input class="form-control" type="number" required name="amount" pattern="^[0-9]" min="30" step="1" placeholder="Enter Your Amount">
+                                    <input class="form-control" type="text" required name="txnid" placeholder="Transaction ID">
+
+
+                                    <button class="btn btn-primary btn-block" type="submit" value="login">PAY </button>
+                                </fieldset>
+                         </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 col-lg-3 offset-md-1">
+                <div class="toc">
+                    <a href="">
+                        <p style="color: firebrick;">Payment History</p>
+                    </a>
+
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base/admin_base.html" %}
+{% load static %}
+{% block title %}
+Admin | Photogallery Edit
+{% endblock %}
+
+{% block container %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <fieldset>
+                    <legend>Edit Photo</legend>
+                    <div class="form-group">
+                        <label for="1">Photo Caption</label>
+                        <input type="text" class="form-control" name="image_caption" id="1" value="{{ photo.image_caption }}" placeholder="Photo Caption">
+                    </div>
+                    <div class="form-group">
+                        <img src="{{ photo.image.url }}" width="300px" height="300px" alt="{{ photo.image_caption }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="2">Upload Image</label>
+                        <input type="file" class="form-control" name="image" id="2">
+                    </div>
+                    <div class="form-group">
+                        <label for="3">Home Visibility Status</label>
+                        <select name="home_visibility_status" id="3">
+                        <option value="True">Show</option>
+                        <option value="False">Hide</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="10">Folder/Tag</label>
+                        <input type="text" class="form-control" name="category" id="10" value="{{ photo.category }}" placeholder="Category/Tag">
+                    </div>
+                    <div class="form-group">
+                        <label for="4">Folder/Tag Visibility Status</label>
+                        <select name="category_visible" id="4">
+                            <option value="True">Show</option>
+                            <option value="False">Hide</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </fieldset>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

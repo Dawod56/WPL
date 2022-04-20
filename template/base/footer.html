@@ -1,0 +1,61 @@
+{% load static %}
+<footer>
+    <div class="row">
+        <div class="col-sm-6 col-md-4 footer-navigation">
+            <h4><a href="/" style="color: white;">{% if setting.org_full_name %}
+                {{ setting.org_full_name }} {% endif %} <span><br><br>
+                    {% if setting.org_icon_image %}
+                    <img src="{{ setting.org_icon_image.url }}" class="rounded" height="100px" width="150px">
+                    {% endif %}
+                </span></a></h4>
+            <p class="links"><a href="/">Home</a><strong> · </strong><a href="/about">About</a><strong> · </strong><a href="/contact">Contact</a></p>
+            {% if setting.org_nickname %}
+            <p class="company-name">{{ setting.org_nickname }} {% endif %} © {% now 'Y' %} </p>
+        </div>
+        <div class="col-sm-6 col-md-4 footer-contacts">
+            <div>
+                {% if setting.org_institution %}
+                <span class="fa fa-map-marker footer-contacts-icon"> </span>
+                <p><span class="new-line-span">
+
+                    {{ setting.org_institution }}
+                    {% endif %}
+                </span>
+                    {% if setting.org_location %}
+                    {{ setting.org_location }}
+                    {% endif %}
+                </p>
+            </div>
+            <div>
+                {% if setting.org_contact_number %}
+                <i class="fa fa-phone footer-contacts-icon"></i>
+                <p class="footer-center-info email text-left"> {{ setting.org_contact_number }} </p>
+                {% endif %}
+            </div>
+            <div>
+                {% if setting.org_mail %}
+                <i class="fa fa-envelope footer-contacts-icon"></i>
+                <p> <a href="mailto:{{ setting.org_mail }}" target="_blank">{{ setting.org_mail }}</a></p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-md-4 footer-about">
+            {% if setting.org_fb_link or setting.org_youtube_link or setting.org_linkedin_link %}
+            <h4>Connect With Us</h4>
+            <p> Please connect with our organization through social media. Links are given below </p>
+            {% endif %}
+            <div class="social-links social-icons">
+                {% if setting.org_fb_link %}
+                <a href="{{ setting.org_fb_link }}"><i class="fa fa-facebook"></i></a>
+                {% endif %}
+                {% if setting.org_youtube_link %}
+                <a href="{{ setting.org_youtube_link }}"><i class="fa fa-youtube"></i></a>
+                {% endif %}
+                {% if setting.org_linkedin_link %}
+                <a href="{{ setting.org_linkedin_link }}"><i class="fa fa-linkedin"></i></a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</footer>

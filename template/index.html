@@ -1,0 +1,86 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}
+Home
+{% endblock %}
+{% block carousel %}
+
+{% endblock %}
+{% block article_dual %}
+{% if carousel %}
+
+    {% include 'base/carousel.html' %}
+
+
+{% endif %}
+<div class="article-dual-column">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div class="intro">
+                    {% if setting.org_full_name %}
+                    <h1 class="text-center">{{ setting.org_full_name }}</h1>
+                    {% endif %}
+
+                    {% if setting.org_homepage_image %}
+                    <img class="img-fluid" src="{{ setting.org_homepage_image.url }}" style=" height:600px">
+                    {% endif %}
+                
+                </div>
+            </div>
+        </div>
+        <div class="row">
+          <!--  <div class="col-md-10 col-lg-3 offset-md-1">
+                <div class="toc">
+                    <p style="color: firebrick;">Features</p>
+                    <ul>
+                        <li><a href="#">IT Skill develop </a> </li>
+                        <li><a href="#">Public Speaking</a></li>
+                        <li><a href="#">Job Fair</a> </li>
+                        
+                    </ul>
+                </div>
+            </div> -->
+            <div class="col-md-10 col-lg-12 offset-md-1 offset-lg-0">
+                <div class="text  ">
+                    {% if setting.org_homepage_description %}
+                   <p style="color:black;"> {{ setting.org_homepage_description|linebreaksbr  }} </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+     <section class="clean-block about-us">
+        <div class="container">
+
+            <div class="photo-gallery">
+                <div class="container">
+                    <div class="intro">
+                        {% if photo_gallery %}
+                        <h2 class="text-center">Photo Gallery</h2>
+                        {% endif %}
+                    </div>
+                    <div class="row photos">
+                        {% for i in photo_gallery %}
+                          {% if i.image%}
+                            <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="{{i.image.url}}" data-lightbox="photos"><img class="img-fluid" src="{{i.image.url}}"></a></div>
+                          {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="intro">
+                        {% if photo_gallery %}
+                        <h2 class="text-center"><a href="{% url 'photos' %}" style="font-family: century schoolbook, times, serif;
+font-size: 14pt;
+color: #0000ff; text-decoration: none;">Show More...</a></h2>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+{% endblock %}
+     
+     

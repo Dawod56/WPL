@@ -1,0 +1,68 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}
+About
+{% endblock %}
+
+{% block container %}
+<section class="about-us">
+
+    <div class="container">
+
+
+        <div class="row padding-content">
+
+
+            <div class="col-md-9 abt-right">
+                <h1 class="text-center">About {{setting.org_nickname}}</h1>
+                <p style="color: black;">{{setting.org_homepage_description|linebreaksbr }}</p>
+
+            </div>
+            <div class="col-md-1 no-padding">
+            </div>
+            <div class="col-md-2 no-padding">
+                <h6  style="color: black;"><a href="{% url 'previous' %}">Previous Governing Body</a></h6>
+
+
+
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container">
+    <h1 class="text-center">Our Governing Body</h1>
+    <div class="row">
+
+
+        {% for i in about %}
+        <div class="col-sm-6 col-md-4">
+        <div class="box">
+
+            <div class="box-img">
+                {% if i.user.image %}
+                <img src="{{ i.user.image.url }}" alt="{{ i.user.full_name }}">
+                {% endif %}
+            </div>
+
+            <div class="box-content">
+                <h4 style="font-size:18px;color:white"><i>{{ i.user.full_name }}</i></h4>
+                <p class="description" > <b>{{ i.designation }} <br>{{ i.active_session }} </b></p>
+                <ul class="social-links">
+                    {% if i.user.fb_link %}
+                    <li><a href="{{ i.user.fb_link }}"><i class="fa fa-facebook"></i></a></li>
+                    {% endif %}
+                    {% if i.user.linkedin %}
+                    <li><a href="{{ i.user.linkedin}}"><i class="fa fa-linkedin"></i></a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}
+     

@@ -1,0 +1,33 @@
+{% load static %}
+
+    <html lang="en">
+    <head>
+
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title>
+        {% block title %}
+        {% endblock %}
+      </title>
+        {% include 'base/css.html' %}
+    </head>
+    <body>
+    {% include 'base/nav.html' %}
+
+<div class="container" style="margin-top:15px">
+    <div class="row">
+        <div class="col-3 col-sm-2">
+             {% include 'base/admin_nav.html' %}
+        </div>
+        <div class="col-10 col-sm-10">
+            {% block container %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+
+    {% include 'base/footer.html' %}
+    {% include 'base/javascript.html' %}
+    </body>
+  </html>

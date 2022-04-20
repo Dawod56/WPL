@@ -1,0 +1,108 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}
+Resource
+{% endblock %}
+
+{% block container %}
+
+<div class="container">
+    <div class="row">
+
+        <div class="col">
+            {% if perms.org.add_resource %}
+                    <button type="button" class="btn btn-success round float-right" data-toggle="modal" data-target="#event_modal1"><i class="fa fa-plus-circle"></i> Add New Resource</button>
+            {% endif %}
+            <div class="modal fade" id="event_modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add New Resource <small><small class="required-input">&nbsp;(* required)</small></small></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'resource' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+           <div class="form-group">
+               <label for="200">File Name *</label>
+                <input type="text" id="200" class="form-control" required name="file_name" placeholder="File Name">
+           </div>
+
+           <div class="form-group">
+               <label for="1">File Cover Photo</label>
+               <input type="file" class="form-control" id="1" name="file_cover_photo" >
+           </div>
+           <div class="form-group">
+               <label for="15">Upload File or Use Google Drive or Youtube <br>If you are going to use drive or link then leave it blank</label>
+               <input type="file" class="form-control" id="15" name="file" >
+           </div>
+
+
+           <div class="form-group">
+               <label for="16">File Drive Link</label>
+                <input type="url" class="form-control" id="16" name="file_drive_link" placeholder="Drive Link">
+           </div>
+           <div class="form-group">
+               <label for="13">Youtube Embed Link</label>
+                <input type="url" id="13" class="form-control"  name="file_youtube_link" placeholder="Youtube Embed link">
+           </div>
+
+          <div class="form-group">
+            <label for="10">
+                File Type *
+            </label>
+              <select id="10" name="file_type">
+                  <option value="PDF">PDF</option>
+                  <option value="Video">Video</option>
+                  <option value="Tutorials">Tutorials</option>
+                  <option value="Others">Others</option>
+              </select>
+          </div>
+            <div class="form-group">
+               <label for="103">File Tag/Category *</label>
+                <input type="text" id="103" class="form-control" required name="file_tag" placeholder="Tag / Genre">
+           </div>
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Add Resource</button>
+            </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2 text-center">
+            <h4 class="list-group-item">
+                Resource Type
+            </h4>
+            <ul class="list-group list-group-flush">
+                {% for i in type %}
+                <li class="list-group-item list-group-item-secondary">
+                    <a href="{% url 'file' i.file_type %}">
+
+                        <button type="button" class="btn btn-info">
+                            {{ i.file_type }}
+                        </button>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+
+     

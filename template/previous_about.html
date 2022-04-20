@@ -1,0 +1,69 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}
+About
+{% endblock %}
+
+{% block container %}
+<section class="about-us">
+    <div class="row">
+        <div class="col">
+        <h1 class="text-danger text-center">Our Prevoious Executive Members</h1>
+    </div>
+    </div>
+
+</section>
+<div class="row">
+    <div class="col-1">
+
+    </div>
+    <div class="col-md-1">
+        <h3>Session</h3>
+                {% for j in session %}
+                {% if j.active_session %}
+
+                <a href="{% url 'session' j.active_session %}" style="color:#8543a3;font-size:16px">{{ j.active_session }}</a><br>
+                {% endif %}
+                {% endfor %}
+    </div>
+    <div class="col-10">
+
+        <div class="container">
+
+        <div class="row">
+
+
+        {% for i in about %}
+        <div class="col-sm-6 col-md-4">
+            <div class="box">
+            {% if i.user.image.url %}
+                <div class="box-img">
+                <img src="{{ i.user.image.url }}" alt="Williamson">
+            </div>
+            {% endif %}
+                <div class="box-content">
+                <h4 style="font-size:18px;color:white"><i>{{ i.user.full_name }}</i></h4>
+                <p class="description" > <b>{{ i.designation }} <br>{{ i.active_session }} </b></p>
+                <ul class="social-links">
+                    {% if i.user.fb_link %}
+                    <li><a href="{{ i.user.fb_link }}"><i class="fa fa-facebook"></i></a></li>
+                    {% endif %}
+                    {% if i.user.linkedin %}
+                    <li><a href="{{ i.user.linkedin}}"><i class="fa fa-linkedin"></i></a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        </div>
+
+    </div>
+    </div>
+
+</div>
+
+
+{% endblock %}
+     

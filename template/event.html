@@ -1,0 +1,341 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}
+Event
+{% endblock %}
+
+{% block container %}
+
+<div class="blog-home2 py-5">
+  <div class="container">
+    <!-- Row  -->
+    <div class="row justify-content-center">
+      <!-- Column -->
+      <div class="col-md-8 text-center">
+        <h3 class="my-3">Events in this week
+        {% if perms.org.add_event %}
+            <button type="button" class="btn btn-success round float-right" data-toggle="modal" data-target="#exampleModal">
+               <i class="fa fa-plus-circle"></i> Launch an Event
+            </button>
+          <!--<button type="button" class="btn btn-success round float-right" data-toggle="modal" data-target="#event_modal"><i class="fa fa-plus-circle"></i> Launch an Event</button>-->
+          {% endif %}
+        </h3>
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Event Type</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ol>
+            <li><button type="button" style="margin:5px 0px 5px 0px;" class="btn btn-info round" data-toggle="modal" data-target="#event_modal2">Offline Event</button></li>
+            <li><button type="button" style="margin:5px 0px 5px 0px;" class="btn btn-success round" data-toggle="modal" data-target="#event_modal1">Online Event</button></li>
+            <li><button type="button" style="margin:5px 0px 5px 0px;" class="btn btn-primary round" data-toggle="modal" data-target="#event_modal3">Fund Raising Event</button></li>
+        </ol>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+                        <div class="modal fade" id="event_modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add New Online Event</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'addevent' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+           <div class="form-group">
+                <input type="text" class="form-control" required name="event_name" placeholder="Event Name">
+           </div>
+           <div class="form-group">
+                <textarea required name="description" class="form-control" placeholder="Event Description"></textarea>
+           </div>
+           <div class="form-group">
+               <label for="1">Event Image</label>
+               <input type="file" class="form-control" id="1" name="image" >
+           </div>
+           <div class="form-group">
+               <label for="100">Event Date</label>
+               <input type="datetime-local" required class="form-control" id="100" name="date" >
+           </div>
+
+           <div class="form-group">
+                <input type="text" class="form-control" hidden name="event_type" value="Online_Event">
+           </div>
+            <div class="form-group">
+                <input type="text" class="form-control"  name="event_platform" placeholder="Online Platform">
+           </div>
+            <div class="form-group">
+                <input type="number" class="form-control" hidden name="target_amount" value="0">
+           </div>
+            <div class="form-group">
+                <input type="text" class="form-control"  name="online_event_link" placeholder="Online Event Link">
+           </div>
+
+
+            <div class="form-group">
+
+                <input type="text" hidden class="form-control"  name="event_location" value="" >
+           </div>
+            <div class="form-group">
+               <label for="557">Participation Fee</label>
+                <input type="number" required pattern="^[0-9]" min="0" step="1" class="form-control" id="557" name="participation_fee" placeholder="Participation Fee">
+           </div>
+           <div class="form-group">
+                <input type="url" class="form-control"  name="facebook_link" placeholder="Facebook Link">
+           </div>
+           <div class="form-group">
+                <input type="url" class="form-control"  name="youtube_link" placeholder="Youtube Link">
+           </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="contact_number" placeholder="Enter a contact number">
+          </div>
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Add Event</button>
+            </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+                        <div class="modal fade" id="event_modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add New Offline Event</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'addevent' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+           <div class="form-group">
+                <input type="text" class="form-control" required name="event_name" placeholder="Event Name">
+           </div>
+           <div class="form-group">
+                <textarea required name="description" class="form-control" placeholder="Event Description"></textarea>
+           </div>
+           <div class="form-group">
+               <label for="1">Event Image</label>
+               <input type="file" class="form-control" id="1" name="image" >
+           </div>
+           <div class="form-group">
+               <label for="100">Event Date</label>
+               <input type="datetime-local" required class="form-control" id="100" name="date" >
+           </div>
+
+           <div class="form-group">
+                <input type="text" class="form-control" hidden name="event_type" value="Offline Event">
+           </div>
+            <div class="form-group">
+                <input type="text" class="form-control" hidden name="event_platform" value="">
+           </div>
+            <div class="form-group">
+                <input type="number" class="form-control" hidden name="target_amount" value="0">
+           </div>
+            <div class="form-group">
+                <input type="text" class="form-control" hidden name="online_event_link" value="">
+           </div>
+            <div class="form-group">
+                <input type="text" class="form-control" hidden name="event_platform" value="">
+           </div>
+
+            <div class="form-group">
+               <label for="101">Event Location</label>
+                <textarea type="text" required class="form-control" id="101" name="event_location" placeholder="Event Location" ></textarea>
+           </div>
+            <div class="form-group">
+               <label for="557">Participation Fee</label>
+                <input type="number" required pattern="^[0-9]" min="0" step="1" class="form-control" id="557" name="participation_fee" placeholder="Participation Fee">
+           </div>
+           <div class="form-group">
+                <input type="url" class="form-control"  name="facebook_link" placeholder="Facebook Link">
+           </div>
+           <div class="form-group">
+                <input type="url" class="form-control"  name="youtube_link" placeholder="Youtube Link">
+           </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="contact_number" placeholder="Enter a contact number">
+          </div>
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Add Event</button>
+            </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+                        <div class="modal fade" id="event_modal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add New Fund Raising Event</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'addevent' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+           <div class="form-group">
+                <input type="text" class="form-control" required name="event_name" placeholder="Event Name">
+           </div>
+           <div class="form-group">
+                <textarea required name="description" class="form-control" placeholder="Event Description"></textarea>
+           </div>
+           <div class="form-group">
+               <label for="1">Event Image</label>
+               <input type="file" class="form-control" id="1" name="image" >
+           </div>
+           <div class="form-group">
+               <label for="100">Event Date</label>
+               <input type="datetime-local" required class="form-control" id="100" name="date" >
+           </div>
+            <input hidden name="event_type" value="Fund_Raising_Event">
+            <input hidden name="event_location" value="">
+            <input hidden name="event_platform" value="">
+            <input hidden name="online_event_link" value="">
+            <input hidden name="participation_fee" value="">
+
+
+           <div class="form-group">
+                <input type="text" class="form-control"  name="target_amount" placeholder="Target Amount">
+           </div>
+           <div class="form-group">
+                <input type="url" class="form-control"  name="facebook_link" placeholder="Facebook Link">
+           </div>
+           <div class="form-group">
+                <input type="url" class="form-control"  name="youtube_link" placeholder="Youtube Link">
+           </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="contact_number" placeholder="Enter a contact number">
+          </div>
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Add Event</button>
+            </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+        <h6 class="subtitle font-weight-normal">You can relay on our amazing features list and also our customer services will be great experience for you without doubt</h6>
+      </div>
+
+    </div>
+    {% for i in present %}
+      {% if i.date %}
+      <div class="row">
+      <!-- Column -->
+
+
+      <div class="col-md-12 on-hover">
+        <div class="card border-0 mb-4">
+          {% if i.image %}
+          <a href="{% url 'event_detail' i.id%}"><img class="card-img-top" src="{{i.image.url}}" style="width:100%; height:650px" alt="wrappixel kit"></a>
+          {% endif %}
+            <div class="date-pos bg-info-gradiant p-3 d-inline-block text-center rounded text-white position-initial">{{i.event_type}}</div>
+
+          <div class="date-pos bg-info-gradiant p-3 d-inline-block text-center rounded text-white position-absolute">{{i.date}}</div>
+
+          <h5 class="font-weight-medium mt-3" style="font-size:38px"><a href="{% url 'event_detail' i.id%}" class="text-decoration-none link">{{i.event_name}}</a></h5>
+          {% if i.registration_link %}
+          <p class="mt-3"><a href="{{i.registration_link}}">Registration Link</a> </p>
+          {% endif %}
+          <a href="{% url 'event_detail' i.id%}" class="text-decoration-none linking text-themecolor mt-2">Show More</a>
+        </div>
+      </div>
+
+
+
+
+
+      <!-- Column -->
+
+    </div>
+      {% else %}
+      <div class="col-md-8 text-center">
+        <h3 class="my-3">No Running Event in this Week</h3>
+      </div>
+      {% endif %}
+      <br><br><br>
+      <hr>
+    {% endfor %}
+    <hr>
+      <div class="col-md-12 text-center">
+          <h2><u><b>Up Coming Event</b></u></h2>
+          <br>
+      </div>
+    <div class="row">
+
+
+      {% for l in coming %}
+      <div class="col-md-4 on-hover">
+
+
+
+        <div class="card border-0 mb-4">
+          {% if l.image %}
+          <a href="{% url 'event_detail' l.id%}"><img class="card-img-top" src="{{l.image.url}}" alt="{{l.event_name}}"></a>
+          {% endif %}
+          <div class="date-pos bg-info-gradiant p-1 d-inline-block text-center rounded text-white position-absolute">{{l.date}}</div>
+          <h5 class="font-weight-medium mt-3" style="font-size:15px"><a href="{% url 'event_detail' l.id%}" class="text-decoration-none link">{{l.event_name}}</a></h5>
+
+          <a href="{% url 'event_detail' l.id%}" class="text-decoration-none linking text-themecolor mt-2">View Details</a>
+        </div>
+
+      </div>
+
+        {% endfor %}
+
+
+    </div>
+
+    <!--<div class="col">
+      <p style="color:#88625A"> <b>Past Event</b></p>
+        {% for k in past %}
+      <div class="col-md-6 on-hover">
+        <div class="card border-0 mb-4">
+          {% if k.image %}
+          <a href="{% url 'event_detail' k.id%}"><img class="card-img-top" src="{{k.image.url}}"  alt="{{k.event_name}}"></a>
+          {% endif %}
+          <div class="date-pos bg-info-gradiant p-1 d-inline-block text-center rounded text-white position-absolute">{{k.date}}</div>
+          <h5 class="font-weight-medium mt-3" style="font-size:15px"><a href="{% url 'event_detail' k.id%}" class="text-decoration-none link">{{k.event_name}}</a></h5>
+
+          <a href="{% url 'event_detail' k.id%}" class="text-decoration-none linking text-themecolor mt-2">View Details</a>
+        </div>
+      </div>
+        <br><br>
+      <hr>
+        {% endfor %}
+
+    </div> -->
+
+  </div>
+
+</div>
+{% endblock %}

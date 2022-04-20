@@ -1,0 +1,28 @@
+{% extends "base/admin_base.html" %}
+{% load static %}
+{% block title %}
+Admin | Executive Members
+{% endblock %}
+
+{% block container %}
+
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="exampleInputEmail1">Designation</label>
+    <input type="text" required name="designation" value="{{ designation.designation }}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Designation">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Priority</label>
+    <input type="text" required name="priority" value="{{ designation.priority }}" class="form-control" id="exampleInputPassword1" placeholder="Priority">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Update</button>
+</form>
+
+
+
+
+{% endblock %}
+  

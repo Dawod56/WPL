@@ -1,0 +1,98 @@
+{% extends "base/admin_base.html" %}
+{% load static %}
+{% block title %}
+Admin | Website Settings
+{% endblock %}
+
+{% block container %}
+
+       <div class="container">
+           <form action="" method="POST" enctype="multipart/form-data">
+               {% csrf_token %}
+  <fieldset>
+    <h2><legend>Update Website Information</legend></h2>
+
+    <div class="form-group">
+      <label for="1">Organization Name</label>
+      <input class="form-control" type="text" id="1"  name="org_full_name" value="{{setting.org_full_name}}" placeholder="Organization Name">
+    </div>
+    <div class="form-group">
+      <label for="2">Organization Nick Name</label>
+      <input class="form-control" type="text" id="2"  name="org_nickname" value="{{setting.org_nickname}}" placeholder="Organization NickName">
+    </div>
+      <div class="form-group">
+      <label for="11">Organization Description</label>
+          <textarea class="form-control" type="text" id="11"  name="org_homepage_description"  placeholder="Organization Description">{{setting.org_homepage_description}}</textarea>
+      </div>
+    <div class="form-group">
+      <label for="3">Organization Email</label>
+      <input class="form-control" type="email" id="3"  name="org_mail" value="{{setting.org_mail}}" placeholder="Organization Email">
+    </div>
+      <div class="form-group">
+      <label for="4">Organization Icon Image</label>
+      <input class="form-control" id="4" type="file"  name="org_icon_image" >
+      </div>
+      <div class="form-group">
+      <label for="5">Organization Institution</label>
+      <input class="form-control" type="text" id="5"  name="org_institution" value="{{setting.org_institution}}" placeholder="Organization Institute">
+      </div>
+      <div class="form-group">
+      <label for="50">Current Governing Body</label>
+        <select id="50"  name="org_active_session">
+          <option value="2020-2021">2020-2021</option>
+          <option value="2021-2022">2021-2022</option>
+          <option value="2022-2023">2022-2023</option>
+          <option value="2023-2024">2023-2024</option>
+          <option value="2024-2025">2024-2025</option>
+          <option value="2025-2026">2025-2026</option>
+          <option value="2026-2027">2026-2027</option>
+          <option value="2027-2028">2027-2028</option>
+          <option value="2028-2029">2028-2029</option>
+          <option value="2029-2030">2029-2030</option>
+
+        </select> session
+      </div>
+      <div class="form-group">
+      <label for="6">Organization Facebook Link</label>
+      <input class="form-control" type="url" id="6"  name="org_fb_link" value="{{setting.org_fb_link}}" placeholder="Organization Facebook Link">
+      </div>
+      <div class="form-group">
+      <label for="7">Organization Linkedin Link</label>
+      <input class="form-control" type="url" id="7"  name="org_linkedin_link" value="{{setting.org_linkedin_link}}" placeholder="Organization Linkedin Link">
+      </div>
+      <div class="form-group">
+      <label for="8">Organization Youtube Channel</label>
+      <input class="form-control" type="url" id="8"  name="org_youtube_link" value="{{setting.org_youtube_link}}" placeholder="Organization Youtube Channel">
+      </div>
+      <div class="form-group">
+      <label for="9">Organization Location Address</label>
+      <input class="form-control" type="text" id="9"  name="org_location" value="{{setting.org_location}}" placeholder="Organization Location Address">
+      </div>
+      <div class="form-group">
+      <label for="10">Organization Contact Number</label>
+      <input class="form-control" type="text" id="10"  name="org_contact_number" value="{{setting.org_contact_number}}" placeholder="Organization Contact Number">
+      </div>
+
+       <div class="form-group">
+      <label for="12">Organization Google Map Embed link</label>
+      <input class="form-control" type="url" id="12"  name="org_map_location" value="{{setting.org_map_location}}" placeholder="Organization Google Map Embed Url">
+      </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+  </fieldset>
+</form>
+       </div>
+
+       
+
+
+
+
+
+
+
+
+
+{% endblock %}
+     
+     

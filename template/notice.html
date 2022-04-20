@@ -1,0 +1,113 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}
+Notice
+{% endblock %}
+
+{% block container %}
+<div class="article-dual-column">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                {% if perms.org.add_notice %}
+                <br>
+                    <button type="button" class="btn btn-success round float-right" data-toggle="modal" data-target="#notice_modal"><i class="fa fa-plus-circle"></i> Add New Notice</button>
+                <div class="modal fade" id="notice_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add New Notice</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'addnotice' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+           <div class="form-group">
+                <input type="text" class="form-control" required name="title" placeholder="Notice Title">
+           </div>
+           <div class="form-group">
+                <textarea required name="text" class="form-control" rows="6" placeholder="Notice Description"></textarea>
+           </div>
+           <div class="form-group">
+               <label for="1">Notice Image</label>
+               <input type="file" class="form-control" id="1" name="image" >
+           </div>
+           <div class="form-group">
+               <label for="2">Upload File</label>
+               <input type="file" class="form-control" id="2" name="file">
+           </div>
+           <div class="form-group">
+                <input type="url" class="form-control"  name="registration_link" placeholder="Registration Link">
+           </div>
+           <div class="form-group">
+                <input type="url" class="form-control"  name="facebook_link" placeholder="Facebook Link">
+           </div>
+           <div class="form-group">
+                <input type="url" class="form-control"  name="youtube_link" placeholder="Youtube Link">
+           </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Add Notice</button>
+            </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+                </div>
+                    {% endif %}
+                <div class="intro">
+                    <h1 class="text-center"> <b> <i> <u>Notice Board</u></i> </b></h1>
+                </div>
+                <div >
+                    {% for i in notice %}
+                    <div class="jumbotron">
+                     {% if perms.kucc.change_notice %}
+
+                            <a class="btn btn-info float-right" href="{% url 'editnotice' i.id %}"><i class="fa fa-edit"></i> Edit</a>
+                     {% endif %}
+                     {% if perms.kucc.delete_notice %}
+
+                            <a class="btn btn-danger float-right" href="{% url 'deletenotice' i.id %}"><i class="fa fa-trash"></i> Delete</a>
+                     {% endif %}
+                        <br>
+
+
+
+                    <h3 class="text-center" style="color:black">{{i.title}}</h3>
+                    <h6 class="text-center">{{i.date}}</h6>
+                    {% if i.image %}
+                    <img src="{{ i.image.url}}" class="card-img-top" alt="Responsive image">
+                         <br> <br> <br>
+                    {% endif %}
+                    {% if i.text %}
+
+                    <p style="color:black" >{{ i.text|linebreaksbr }}</p>
+                    {% endif %}
+                    {% if i.registration_link %}
+                    <a href="{{ i.registration_link }}" target="_blank">Registration</a><br>
+                    {% endif %}
+                    {% if i.file %}
+                    <a href="{{ i.file.url }}" download >Download file</a><br>
+                    {% endif %}
+                    {% if i.facebook_link %}
+                    <a href="{{ i.facebook_link }}" target="_blank">Facebook Link</a><br>
+                    {% endif %}
+                    {% if i.youtube_link %}
+                    <a href="{{ i.youtube_link }}" target="_blank">Youtube Link</a><br>
+                    {% endif %}
+                    </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+     

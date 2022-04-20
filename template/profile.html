@@ -1,0 +1,103 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}
+User Profile
+{% endblock %}
+
+{% block container %}
+<header class="header">
+    <div class="container">
+      <div class="teacher-name" style="padding-top:20px;">
+
+        <div class="row" style="margin-top:0px;">
+        <div class="col-md-9">
+          {% if user.profile.full_name%}
+          <h2 style="font-size:28px;color:#88625A"><strong>{{user.profile.full_name}}</strong></h2>
+          {% else %}
+          <h2 style="font-size:28px"><strong>{{user.first_name}} {{user.last_name}}</strong></h2>
+          {% endif %}
+        </div>
+        <div class="col-md-2">
+          <div class="button" style="float:right;">
+            {% if user.is_authenticated%}
+            <a href="{% url 'update' user.profile.id%}" class="btn btn-outline-success btn-sm">Edit Profile</a>
+
+
+            {% endif %}
+
+          </div>
+
+        </div>
+        <div class="col-md-1">
+        {% if user.profile.id %}
+        <a class="btn btn-outline-primary" role="button" href="{% url 'payment'  %}">Payment</a>
+        {% endif %}
+        </div>
+
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:20px;">
+        <div class="col-md-3"> <!-- Image -->
+          {% if user.profile.image %}
+          <a href="{{user.profile.image.url}}"> <img class="rounded-circle" src="{{user.profile.image.url}}" alt="{{user.username}}" style="width:200px;height:200px"></a>
+           {% endif %}
+        </div>
+
+        <div class="col-md-6"> <!-- Rank & Qualifications -->
+
+          <h5 style="color:#3AAA64">
+            {% if user.profile.profession %}
+            <span>{{user.profile.profession}}</span>
+            , Dept. of
+            {% endif %}
+
+            {% if user.profile.discipline %}
+            <span><i>{{user.profile.discipline}},</i></span>
+            {% endif %}
+            {% if user.profile.university_or_institute %}
+            <b>{{user.profile.university_or_institute}}</b>
+            {% endif %}
+          </h5>
+          <hr>
+          {% if user.profile.current_city %}
+          <p style="color:#3AAA64">Current City: {{user.profile.current_city}}</p>
+          {% endif %}
+
+          {% if user.profile.hometown %}
+          <p style="color:#3AAA64">Permanent Address: {{user.profile.hometown}}</p>
+          {% endif %}
+        </div>
+
+        <div class="col-md-3 text-center"> <!-- Phone & Social -->
+          {% if user.profile.contact_number %}
+          <span class="number" style="font-size:18px">Phone:<strong>+88{{user.profile.contact_number}}</strong></span>
+          {% endif %}
+          <div class="button" style="padding-top:18px">
+            <p style="color:#3AAA64">Email: {{user.username}}</p>
+          </div>
+          <div class="social-icons" style="padding-top:18px">
+            {% if user.profile.linkedin %}
+            <a href="{{user.profile.linkedin}}" target="_blank">
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x" style="color:#3AAA64"></i>
+              <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+            </span></a>
+            {% endif %}
+            {% if user.profile.fb_link %}
+            <a href="{{user.profile.fb_link}}" target="_blank">
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x" style="color:#3AAA64"></i>
+              <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+            </span></a>
+            {% endif %}
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+{% endblock %}
+     

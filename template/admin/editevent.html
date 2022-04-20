@@ -1,0 +1,133 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}
+Edit Event
+{% endblock %}
+
+{% block container %}
+<div class="row" >.</div>
+<div class="container ">
+    <div class="row flex v-center ">
+        <div class="col-3" >.</div>
+        <div class="col col-sm-6">
+            <div class="form-box">
+                <form action="{% url 'updateevent' event.id %}" method="POST" enctype="multipart/form-data">
+                    <legend>Edit {{event.event_type }}</legend>
+            {% csrf_token %}
+           <div class="form-group">
+                <input type="text" class="form-control" required name="event_name" value="{{event.event_name}}" placeholder="Event Name">
+           </div>
+           <div class="form-group">
+                <textarea required name="description" class="form-control" placeholder="Event Description">{{event.description}}</textarea>
+           </div>
+           <a href="{% url 'eventphoto' event.id%}">
+                       <button type="button" class="form-control" data-toggle="modal" >
+                    Update Event Photo
+                    </button>
+                    </a>
+           <div class="form-group">
+               <label for="100">Event Date <i>Current Date:</i><b> {{event.date}}</b></label>
+               <input type="datetime-local" required class="form-control" id="100" name="date" >
+           </div>
+
+           {% if event.event_type == 'Online_Event' %}
+           <div class="form-group">
+                <input type="text" class="form-control" hidden name="event_type" value="Online_Event">
+           </div>
+            <div class="form-group">
+                <input type="text" class="form-control"  name="event_platform" value="{{ event.event_platform }}" placeholder="Online Platform">
+           </div>
+            <div class="form-group">
+                <input type="number" class="form-control" hidden name="target_amount" value="0">
+           </div>
+            <div class="form-group">
+                <input type="text" class="form-control" value="{{ event.online_event_link }}"  name="online_event_link" placeholder="Online Event Link">
+           </div>
+
+
+            <div class="form-group">
+
+                <input type="text" hidden class="form-control"  name="event_location" value="" >
+           </div>
+            <div class="form-group">
+               <label for="557">Participation Fee</label>
+                <input type="number" required pattern="^[0-9]" min="0" step="1" class="form-control" id="557" name="participation_fee" value="{{ event.participation_fee }}" placeholder="Participation Fee">
+           </div>
+           <div class="form-group">
+                <input type="url" class="form-control" value="{{ event.facebook_link }}" name="facebook_link" placeholder="Facebook Link">
+           </div>
+           <div class="form-group">
+                <input type="url" class="form-control" value="{{ event.youtube_link }}" name="youtube_link" placeholder="Youtube Link">
+           </div>
+          <div class="form-group">
+            <input type="text" class="form-control" value="{{ event.contact_number }}" name="contact_number" placeholder="Enter a contact number">
+          </div>
+           {% endif %}
+                    {% if event.event_type == 'Offline Event' %}
+            <div class="form-group">
+                <input type="text" class="form-control" hidden name="event_type" value="Pysical_Event">
+           </div>
+            <div class="form-group">
+                <input type="text" class="form-control" hidden name="event_platform" value="">
+           </div>
+            <div class="form-group">
+                <input type="number" class="form-control" hidden name="target_amount" value="0">
+           </div>
+            <div class="form-group">
+                <input type="text" class="form-control" hidden name="online_event_link" value="">
+           </div>
+            <div class="form-group">
+                <input type="text" class="form-control" hidden name="event_platform" value="">
+           </div>
+
+            <div class="form-group">
+               <label for="101">Event Location</label>
+                <textarea type="text" required class="form-control" id="101"  name="event_location" placeholder="Event Location" >{{ event.event_location }}</textarea>
+           </div>
+            <div class="form-group">
+               <label for="557">Participation Fee</label>
+                <input type="number" required pattern="^[0-9]" min="0" step="1" class="form-control" value="{{ event.participation_fee }}" id="557" name="participation_fee" placeholder="Participation Fee">
+           </div>
+           <div class="form-group">
+                <input type="url" class="form-control" value="{{ event.facebook_link }}"  name="facebook_link" placeholder="Facebook Link">
+           </div>
+           <div class="form-group">
+                <input type="url" class="form-control" value="{{ event.youtube_link }}" name="youtube_link" placeholder="Youtube Link">
+           </div>
+          <div class="form-group">
+            <input type="text" class="form-control" value="{{ event.contact_number }}" name="contact_number" placeholder="Enter a contact number">
+          </div>
+
+                    {% endif %}
+                    {% if event.event_type == 'Fund_Raising_Event' %}
+                    <input hidden name="event_type" value="Fund_Raising_Event">
+                    <input hidden name="event_location" value="">
+                    <input hidden name="event_platform" value="">
+                    <input hidden name="online_event_link" value="">
+                    <input hidden name="participation_fee" value="">
+                    <div class="form-group">
+                <input type="text" class="form-control" required value="{{ event.target_amount }}" name="target_amount" placeholder="Target Amount">
+           </div>
+                    <div class="form-group">
+                <input type="url" class="form-control" value="{{ event.facebook_link }}"  name="facebook_link" placeholder="Facebook Link">
+           </div>
+                    <div class="form-group">
+                <input type="url" class="form-control" value="{{ event.youtube_link}} "  name="youtube_link" placeholder="Youtube Link">
+           </div>
+                    <div class="form-group">
+            <input type="text" class="form-control" value="{{ event.contact_number }}" name="contact_number" placeholder="Enter a contact number">
+          </div>
+                    {% endif %}
+
+            <div class="modal-footer">
+                <a href="/event" class="btn btn-secondary" data-dismiss="modal">Back</a>
+                <button type="submit" class="btn btn-primary">Update Event</button>
+            </div>
+        </form>
+            </div>
+        </div>
+        <div class="col-3" >.</div>
+    </div>
+</div>
+{% endblock %}
+     

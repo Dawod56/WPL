@@ -1,0 +1,39 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}
+Photo Upload
+{% endblock %}
+
+{% block container %}
+<div class="row" >.</div>
+<div class="container full-height">
+    <div class="row flex center v-center full-height">
+        <div class="col-8 col-sm-6">
+            <div class="form-box">
+                <form action="{% url 'eventphoto' obj.id%}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <fieldset>
+                        <legend>Upload Photo</legend>
+                        {% if obj.image%}
+                        <a href="{{obj.image.url}}"> <img class="rounded-circle" src="{{obj.image.url}}" alt="{{obj.date}}" style="width:300px;height:300px"></a>
+                        {% else %}
+                        <img id="avatar" class="avatar round " src="{% static 'img/avatar.png' %}">
+                        {% endif %}
+                        <div class="form-group">
+                            <label for="image"><b></b></label>
+                            <input type="file" class="form-control" required name="image" id="image">
+                        </div>
+
+                        <button class="btn btn-primary btn-block" type="submit" >Upload </button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+     

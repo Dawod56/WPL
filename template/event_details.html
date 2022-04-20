@@ -1,0 +1,260 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}
+Event Details
+{% endblock %}
+
+{% block container %}
+<div class="blog-home2 py-5">
+    <div class="container">
+        {% if perms.org.change_event %}
+
+                            <a class="btn btn-info float-right" style="margin: 0px 2px 0px 2px" href="{% url 'editevent' event.id %}"><i class="fa fa-edit"></i> Edit</a>
+                     {% endif %}
+                     {% if perms.org.delete_event %}
+
+                            <a class="btn btn-danger float-right" style="margin: 0px 2px 0px 2px" href="{% url 'deleteevent' event.id %}"><i class="fa fa-trash"></i> Delete</a>
+                     {% endif %}
+                    {% if perms.org.view_event %}
+                        <button type="button" style="margin: 0px 2px 0px 2px" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal">
+                            View Details
+                        </button>
+                    {% endif %}
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Event Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <table class="table">
+  <thead class="thead-dark">
+    <tr>
+
+      <th scope="col">Name</th>
+       <th scope="col">Date</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Transaction</th>
+        <th scope="col">Method</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  {% for i in details %}
+
+    <tr>
+
+      <td>{{ i.user.profile.full_name }}</td>
+        <td>{{ i.date }}</td>
+      <td>{{ i.amount }}</td>
+        <td>{{ i.transaction }}</td>
+      <td>{{ i.method }}</td>
+    </tr>
+
+  {% endfor %}
+
+  </tbody>
+</table>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+        <div class="row justify-content-center">
+
+      <!-- Column -->
+      <div class="col-md-8">
+        <h3 class="my-3 text-center" style="font-size:40px">{{event.event_name}}</h3>
+
+
+      </div>
+
+    </div>
+        <div class="row">
+            {% if event.event_type == 'Online_Event' %}
+                <div class="col-md-12 on-hover">
+        <div class="card border-0 mb-4">
+            {% if event.image %}
+          <a href="#"><img class="card-img-top" src="{{event.image.url}}" style="width:100%; height:650px"  alt="wrappixel kit"></a>
+            {% endif %}
+          <div class="date-pos bg-info-gradiant p-3 d-inline-block text-center rounded text-white position-absolute">{{event.date}}</div>
+          <h5 class="font-weight-medium mt-3" style="font-size:38px">{{event.event_name}}</h5>
+          <h5 class="font-weight-medium mt-3" style="font-size:15px">{{event.description}}</h5>
+            {% if event.event_platform %}
+            <h5 class="font-weight-medium mt-3" style="font-size:15px">Online Platform: <b></b></h5>
+            {% endif %}
+            {% if event.online_event_link %}
+            <p class="mt-3">Join with:<a href="{{event.online_event_link}}" target="_blank"> {{event.event_platform}}</a> Link</p>
+            {% endif %}
+
+
+          {% if event.facebook_link %}
+          <p class="mt-3"><a href="{{event.facebook_link}}">Visit Our Facebook Event</a> </p>
+          {% endif %}
+
+        </div>
+    <hr>
+                    {% if event.participation_fee == '0' and not taken%}
+                    <h1>This event is free for all. You can join.</h1>
+                    {% if taken and user.is_authenticated %}
+                        <h2> Thank you for registering. Please keep with us</h2><br>
+                    {% elif not taken and user.is_authenticated%}
+                            <form action="{% url 'participate' event.id %}" method="POST">
+                     {% csrf_token %}
+                    <button type="submit" class="btn btn-success round ">Register</button>
+                </form>
+                     {% else %}
+                        <a class="btn btn-success round " href="{% url 'signup' %}">Sign Up First</a>
+                        {% endif %}
+
+                    {% else %}
+
+                    {% if taken and user.is_authenticated %}
+                        <h2> Thank you for registering. Please keep with us</h2><br>
+            {% elif not taken and user.is_authenticated%}
+                <form action="{% url 'participate' event.id %}" method="POST">
+                    <label for="10000">Participation Fee</label>
+                     <input type="number" id="10000" value="{{ event.participation_fee }}" readonly name="participation_fee">
+                    <br>
+                    <label for="10001">Transaction ID</label>
+                    <input type="text" id="10001" required  name="transaction_id" placeholder="Transaction ID">
+                    <br>
+                    <label for="216">Payment Method</label>
+                    <select name="method" id="216">
+                        <option value="Bkash">Bkash</option>
+                        <option value="Rocket">Rocket</option>
+                        <option value="Nagad">Nagad</option>
+                    </select>
+                    <br>
+                     {% csrf_token %}
+                    <button type="submit" class="btn btn-success round ">Register</button>
+                </form>
+            {% else %}
+             <a class="btn btn-success round " href="{% url 'signup' %}">Sign Up First</a>
+            {% endif %}
+
+                    {% endif %}
+
+            </div>
+            {% endif %}
+            {% if event.event_type == 'Offline Event' %}
+                <div class="col-md-12 on-hover">
+        <div class="card border-0 mb-4">
+            {% if event.image %}
+          <a href="#"><img class="card-img-top" src="{{event.image.url}}" style="width:100%; height:650px"  alt="wrappixel kit"></a>
+            {% endif %}
+          <div class="date-pos bg-info-gradiant p-3 d-inline-block text-center rounded text-white position-absolute">{{event.date}}</div>
+          <h5 class="font-weight-medium mt-3" style="font-size:38px">{{event.event_name}}</h5>
+          <h5 class="font-weight-medium mt-3" style="font-size:15px">{{event.description}}</h5>
+            {% if event.event_location %}
+            <h5 class="font-weight-medium mt-3" style="font-size:15px">Location: {{event.event_location}}</h5>
+
+            {% endif %}
+
+          {% if event.facebook_link %}
+          <p class="mt-3"><a href="{{event.facebook_link}}">Visit Our Facebook Event</a> </p>
+          {% endif %}
+
+        </div>
+    <hr>
+
+            {% if event.participation_fee == '0' and not taken%}
+                    <h1>This event is free for all. You can join.</h1>
+                    {% if taken and user.is_authenticated %}
+                        <h2> Thank you for registering. Please keep with us</h2><br>
+                    {% elif not taken and user.is_authenticated%}
+                            <form action="{% url 'participate' event.id %}" method="POST">
+                     {% csrf_token %}
+                    <button type="submit" class="btn btn-success round ">Register</button>
+                </form>
+                     {% else %}
+                        <a class="btn btn-success round " href="{% url 'signup' %}">Sign Up First</a>
+                        {% endif %}
+
+                    {% else %}
+
+                    {% if taken and user.is_authenticated %}
+                        <h2> Thank you for registering. Please keep with us</h2><br>
+            {% elif not taken and user.is_authenticated%}
+                <form action="{% url 'participate' event.id %}" method="POST">
+                    <label for="10000">Participation Fee</label>
+                     <input type="number" id="10000" value="{{ event.participation_fee }}" readonly name="participation_fee">
+                    <br>
+                    <label for="10001">Transaction ID</label>
+                    <input type="text" id="10001" required  name="transaction_id" placeholder="Transaction ID">
+                    <br>
+                    <label for="216">Payment Method</label>
+                    <select name="method" id="216">
+                        <option value="Bkash">Bkash</option>
+                        <option value="Rocket">Rocket</option>
+                        <option value="Nagad">Nagad</option>
+                    </select>
+                    <br>
+                     {% csrf_token %}
+                    <button type="submit" class="btn btn-success round ">Register</button>
+                </form>
+            {% else %}
+             <a class="btn btn-success round " href="{% url 'signup' %}">Sign Up First</a>
+            {% endif %}
+
+                    {% endif %}
+
+            </div>
+            {% endif %}
+            {% if event.event_type == 'Fund_Raising_Event' %}
+                <div class="col-md-12 on-hover">
+        <div class="card border-0 mb-4">
+            {% if event.image %}
+          <a href="#"><img class="card-img-top" src="{{event.image.url}}" style="width:100%; height:650px"  alt="wrappixel kit"></a>
+            {% endif %}
+          <div class="date-pos bg-info-gradiant p-3 d-inline-block text-center rounded text-white position-absolute">{{event.date}}</div>
+          <h5 class="font-weight-medium mt-3" style="font-size:38px">{{event.event_name}}</h5>
+          <h5 class="font-weight-medium mt-3" style="font-size:15px">{{event.description}}</h5>
+
+
+          {% if event.facebook_link %}
+          <p class="mt-3"><a href="{{event.facebook_link}}">Visit Our Facebook Event</a> </p>
+          {% endif %}
+
+        </div>
+    <hr>
+          <h5 class="font-weight-medium mt-3" style="font-size:20px">Taget Amount: {{event.target_amount}} ৳</h5>
+          <h5 class="font-weight-medium mt-3" style="font-size:15px">Collected: {{event.current_amount}} ৳</h5>
+
+            {% if user.is_authenticated %}
+             <form action="{% url 'participate' event.id %}" method="POST">
+                    <label for="10000">Donation Amount</label>
+                     <input type="number" id="10000" required pattern="^[0-9]" min="0" step="1"  name="participation_fee">
+                    <br>
+                    <label for="10001">Transaction ID</label>
+                    <input type="text" id="10001" required  name="transaction_id" placeholder="Transaction ID">
+                    <br>
+                    <label for="216">Payment Method</label>
+                    <select name="method" id="216">
+                        <option value="Bkash">Bkash</option>
+                        <option value="Rocket">Rocket</option>
+                        <option value="Nagad">Nagad</option>
+                    </select>
+                    <br>
+                     {% csrf_token %}
+                    <button type="submit" class="btn btn-success round">Donate</button>
+                </form>
+             {% else %}
+                 <a class="btn btn-success round " href="{% url 'signup' %}">You have to Sign Up First to donate</a>
+             {% endif %}
+
+        </div>
+            {% endif %}
+    </div>
+</div>
+</div>
+{% endblock %}

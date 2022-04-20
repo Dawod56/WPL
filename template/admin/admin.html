@@ -1,0 +1,28 @@
+{% extends "base/admin_base.html" %}
+{% load static %}
+{% block title %}
+Admin | Home
+{% endblock %}
+
+{% block container %}
+
+<div class="jumbotron text-center" style="margin-bottom:0">
+  <h1>Welocme <i style="color:red">{% if user.profile.full_name%}
+                    {{user.profile.full_name}}
+                    {% else %}
+                    {{user.username}}
+      {% endif %} </i> <br>To <br> <b>{{setting.org_nickname}}</b> Admin Section
+
+  </h1>
+
+</div>
+
+
+
+
+
+
+
+{% endblock %}
+     
+     

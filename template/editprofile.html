@@ -1,0 +1,196 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}
+Edit profile
+{% endblock %}
+
+{% block container %}
+<div class="row" >.</div>
+<div class="container ">
+    <div class="row flex v-center ">
+        <div class="col-3" >.</div>
+        <div class="col col-sm-6">
+            <div class="form-box">
+                <form action="{% url 'update' user.profile.id%}" method="post" enctype="multipart/form-data">
+                    <legend>Your Profile</legend>
+                    {% if user.profile.image%}
+                    <img id="avatar" class="avatar round " src="{{user.profile.image.url}}">
+                    {% else %}
+                    <img id="avatar" class="avatar round " src="{% static 'img/avatar.png' %}">
+                    {% endif %}
+                    <a href="{% url 'update2' user.profile.id%}">
+                       <button type="button" class="form-control" data-toggle="modal" >
+                    Upload Profile Picture
+                    </button>
+                    </a>
+
+                    {% if profile.full_name%}
+                    <div class="form-group">
+                        <label for="full_name">Full Name:</label>
+                        <input type="text" class="form-control" name="full_name" value="{{profile.full_name}}" placeholder="Enter Your Full Name" id="full_name">
+                    </div>
+                    {% else%}
+                    <div class="form-group">
+                        <label for="full_name">Full Name:</label>
+                        <input type="text" class="form-control" name="full_name"  placeholder="Enter Your Full Name" id="full_name">
+                    </div>
+                    {% endif %}
+                    {% if profile.university_or_institute%}
+                    <div class="form-group">
+                        <label for="university_or_institute">Institute:</label>
+                        <input type="text" class="form-control" name="university_or_institute" value="{{profile.university_or_institute}}" placeholder="university or institute" id="university_or_institute">
+                    </div>
+                    {% else%}
+                    <div class="form-group">
+                        <label for="university_or_institute">Institute:</label>
+                        <input type="text" class="form-control" name="university_or_institute"  placeholder="university or institute" id="university_or_institute">
+                    </div>
+                    {% endif %}
+
+                    {% if profile.discipline%}
+                    <div class="form-group">
+                        <label for="discipline">Discipline:</label>
+                        <input type="text" class="form-control" name="discipline" value="{{profile.discipline}}" placeholder="Enter Your Discipline or Department" id="discipline">
+                    </div>
+                    {% else%}
+                    <div class="form-group">
+                        <label for="discipline">Discipline:</label>
+                        <input type="text" class="form-control" name="discipline"  placeholder="Enter Your Discipline or Department" id="discipline">
+                    </div>
+                    {% endif %}
+                    {% if profile.batch%}
+                    <div class="form-group">
+                        <label for="batch">Batch:</label>
+                        <input type="text" class="form-control" name="batch" value="{{profile.batch}}" placeholder="Enter Your Batch" id="batch">
+                    </div>
+                    {% else%}
+                    <div class="form-group">
+                        <label for="batch">Batch:</label>
+                        <input type="text" class="form-control" name="batch"  placeholder="Enter Your Batch" id="batch">
+                    </div>
+                    {% endif %}
+                    {% if profile.student_id%}
+                    <div class="form-group">
+                        <label for="student_id">Student ID:</label>
+                        <input type="text" class="form-control" name="student_id" value="{{profile.student_id}}" placeholder="Enter Your Student ID" id="student_id">
+                    </div>
+                    {% else%}
+                    <div class="form-group">
+                        <label for="student_id">Student ID:</label>
+                        <input type="text" class="form-control" name="student_id" placeholder="Enter Your Student ID" id="student_id">
+                    </div>
+                    {% endif %}
+                    {% if profile.blood_group%}
+                    <div class="form-group">
+                        <label for="sel1">Your Blood Group:</label>
+                            <select class="form-control" id="sel1" name="blood_group">
+                                <option value="{{profile.blood_group}}">Your Blood Group: {{profile.blood_group}}</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                    </div>
+                    {% else%}
+                    <div class="form-group">
+                        <label for="sel1">Your Blood Group:</label>
+                            <select class="form-control" id="sel1" name="blood_group">
+                                <option value="">Your Blood Group:--- </option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                    </div>
+                    {% endif %}
+                    {% if profile.contact_number%}
+                    <div class="form-group">
+                        <label for="contact_number">Contact Number:</label>
+                        <input type="text" class="form-control" name="contact_number" value="{{profile.contact_number}}"  placeholder="Your Contact Number" id="contact_number">
+                    </div>
+                    {% else%}
+                    <div class="form-group">
+                        <label for="contact_number">Contact Number:</label>
+                        <input type="text" class="form-control" name="contact_number"   placeholder="Your Contact Number" id="contact_number">
+                    </div>
+                    {% endif %}
+                    {% if profile.profession%}
+                    <div class="form-group">
+                        <label for="profession">Profession:</label>
+                        <input type="text" class="form-control" name="profession" value="{{profile.profession}}" placeholder="Your Current Profession" id="profession">
+                    </div>
+                    {% else%}
+                    <div class="form-group">
+                        <label for="profession">Profession:</label>
+                        <input type="text" class="form-control" name="profession"  placeholder="Your Current Profession" id="profession">
+                    </div>
+                    {% endif %}
+                    {% if profile.current_city%}
+                    <div class="form-group">
+                        <label for="current_city">Present Address:</label>
+                        <textarea type="text" class="form-control" name="current_city"  placeholder="Enter Your Present Address" id="current_city">{{profile.current_city}}</textarea>
+                    </div>
+                    {% else%}
+                    <div class="form-group">
+                        <label for="current_city">Present Address:</label>
+                        <textarea type="text" class="form-control" name="current_city"  placeholder="Enter Your Present Address" id="current_city"></textarea>
+                    </div>
+                    {% endif %}
+                    {% if profile.hometown%}
+                    <div class="form-group">
+                        <label for="hometown">Permanent Address:</label>
+                        <textarea type="text" class="form-control" name="hometown" value="{{profile.hometown}}" placeholder="Enter Your Permanent Address" id="hometown">{{profile.hometown}}</textarea>
+                    </div>
+                    {% else%}
+                    <div class="form-group">
+                        <label for="hometown">Permanent Address:</label>
+                        <textarea type="text" class="form-control" name="hometown"  placeholder="Enter Your Permanent Address" id="hometown"></textarea>
+                    </div>
+                    {% endif %}
+                    {% if profile.fb_link%}
+                    <div class="form-group">
+                        <label for="fb_link">Facebook Profile Link:</label>
+                        <input type="url" class="form-control" name="fb_link"  value="{{profile.fb_link}}" placeholder="Enter Your Facebook Profile Link" id="fb_link">
+                    </div>
+                    {% else%}
+                    <div class="form-group">
+                        <label for="fb_link">Facebook Profile Link:</label>
+                        <input type="url" class="form-control" name="fb_link"   placeholder="Enter Your Facebook Profile Link" id="fb_link">
+                    </div>
+                    {% endif %}
+                    {% if profile.linkedin%}
+                    <div class="form-group">
+                        <label for="linkedin">LinkedIn Profile Link:</label>
+                        <input type="url" class="form-control" name="linkedin" value="{{profile.linkedin}}" placeholder="Enter Your Linkedin profile Link" id="linkedin">
+                    </div>
+                    {% else%}
+                    <div class="form-group">
+                        <label for="linkedin">LinkedIn Profile Link:</label>
+                        <input type="url" class="form-control" name="linkedin"  placeholder="Enter Your Linkedin profile Link" id="linkedin">
+                    </div>
+                    {% endif %}
+
+
+
+
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-3" >.</div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

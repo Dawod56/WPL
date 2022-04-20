@@ -1,0 +1,115 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}
+Resource
+{% endblock %}
+
+{% block container %}
+
+<div class="container" style="margin-top:30px">
+  <div class="row">
+    <div class="col-sm-2">
+        <div class="text-center">
+            <h4 class="list-group-item">
+                Resource Type
+            </h4>
+            <ul class="list-group list-group-flush">
+                {% for i in type %}
+                <li class="list-group-item list-group-item-secondary">
+                    <a href="{% url 'file' i.file_type %}">
+
+                        <button type="button" class="btn btn-info">
+                            {{ i.file_type }}
+                        </button>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+
+
+
+
+      <hr class="d-sm-none">
+    </div>
+
+    <div class="col-sm-8">
+        <div class="row">
+
+
+        {% for i in show %}
+
+
+        <div class="card border-0 mb-4 bg-light" style="margin:5px 30px 0px 40px">
+          {% if i.file_type == 'PDF' %}
+            {% if i.file_cover_photo %}
+            <img class="card-img-top" src="{{i.file_cover_photo.url}}" style="width:300px; height:300px; margin:0px 0px 0px 10px" alt="wrappixel kit">
+            {% endif %}
+
+             <h5 class="font-weight-medium mt-3 text-center text-success" style="font-size:38px">{{i.file_name}}</h5>
+            {% if i.file_drive_link %}
+             <p class="mt-3"><a href="{{i.file_drive_link}}" class="text-info" style="margin:0px 0px 0px 20px"><i class="fa fa-download" aria-hidden="true"></i> Download</a> </p>
+              {% endif %}
+            {% if i.file %}
+                    <a href="{{ i.file.url }}" download class="text-info" style="margin:0px 0px 0px 20px"><i class="fa fa-download" aria-hidden="true"> </i> Download File</a><br>
+              {% endif %}
+          {% endif %}
+           {% if i.file_type == 'Video' %}
+            {% if i.file_youtube_link %}
+            <iframe width="560" height="315" src="{{ i.file_youtube_link }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            {% elif i.file_cover_photo %}
+            <img class="card-img-top" src="{{i.file_cover_photo.url}}" style="width:300px; height:300px; margin:0px 0px 0px 10px" alt="wrappixel kit">
+            {% elif i.file %}
+             <a href="{{ i.file.url }}" download class="text-info" style="margin:0px 0px 0px 20px"><i class="fa fa-download" aria-hidden="true"> </i> Download File</a><br>
+
+            {% else %}
+                        <h5 class="font-weight-medium mt-3 text-center text-danger" style="font-size:38px"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Video Not Available</h5>
+            {% endif %}
+
+
+            <h5 class="font-weight-medium mt-3 text-center text-success" style="font-size:38px">{{i.file_name}}</h5>
+            {% endif %}
+            {% if i.file_type == 'Tutorials' %}
+            {% if i.file_cover_photo %}
+            <img class="card-img-top" src="{{i.file_cover_photo.url}}" style="width:300px; height:300px; margin:0px 0px 0px 10px" alt="wrappixel kit">
+            {% endif %}
+
+             <h5 class="font-weight-medium mt-3 text-center text-success" style="font-size:38px">{{i.file_name}}</h5>
+            {% if i.file_drive_link %}
+             <p class="mt-3"><a href="{{i.file_drive_link}}" class="text-info" style="margin:0px 0px 0px 20px"><i class="fa fa-download" aria-hidden="true"></i>Download</a> </p>
+              {% endif %}
+            {% if i.file %}
+                    <a href="{{ i.file.url }}" download class="text-info" style="margin:0px 0px 0px 20px"><i class="fa fa-download" aria-hidden="true"> </i> Download File</a><br>
+              {% endif %}
+          {% endif %}
+
+
+        </div>
+
+        {% endfor %}
+        </div>
+    </div>
+    <div class="col-sm-2">
+          <h4 class="list-group-item">
+              {{file_type}}  Category
+            </h4>
+
+        <ol class="list-group list-group-flush">
+                {% for j in tag %}
+                <li class="list-group-item list-group-item-secondary">
+                    <a href="{% url 'tagged' file_type j.file_tag %}">
+
+                        <button type="button" class="btn btn-info">
+                          <i class="fa fa-folder" aria-hidden="true"></i> {{ j.file_tag }}
+                        </button>
+                    </a>
+                </li>
+                {% endfor %}
+        </ol>
+      </div>
+  </div>
+</div>
+
+
+{% endblock %}

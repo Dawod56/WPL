@@ -1,0 +1,59 @@
+{% extends "base/admin_base.html" %}
+{% load static %}
+{% block title %}
+Admin | Payment Request
+{% endblock %}
+
+{% block container %}
+
+
+<div class="row>">
+        <h3>Contact Us Messages:</h3>
+</div>
+<table class="table table-dark table-striped">
+                <thead>
+    <tr>
+
+      <th >Name</th>
+      <th >Email</th>
+      <th >Date</th>
+      <th >Phone Number</th>
+      <th >Message</th>
+      <th >Read Status</th>
+
+
+    </tr>
+  </thead>
+                <tbody>
+  {% for i in message %}
+    <tr >
+
+      <td>{{ i.name }}</td>
+      <td>{{ i.email }}</td>
+      <td>{{ i.date }}</td>
+      <td>{{ i.phone }}</td>
+      <td><textarea rows="4" readonly>{{ i.comment }}</textarea></td>
+      <td>{{i.visited}}</td>
+
+
+
+    </tr>
+   {% endfor %}
+
+  </tbody>
+            </table>
+
+
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+     
+     
